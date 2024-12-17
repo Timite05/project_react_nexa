@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import outilsImage from './outils.png';
-import SecondPage from './secondPage'; // Assurez-vous que le chemin est correct
+import ListeContactPage from './ListeContactPage';
 
-function App() {
+export default function WelcomePage() {
   const [showSecondPage, setShowSecondPage] = useState(false);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ function App() {
   }, []);
 
   if (showSecondPage) {
-    return <SecondPage />;
+    return <ListeContactPage />;
   }
 
   return (
@@ -32,5 +32,5 @@ function App() {
   );
 }
 
-export default App;
+
 

@@ -1,12 +1,42 @@
 import React from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import  { useState, useEffect } from 'react';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 export default function ListeContactPage() {
+  const [contact, setContact] = useState([]); 
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null); 
+
+  useEffect(() => {
+    // Appel à une API pour récupérer des données
+    fetch("http://localhost:3004/contact")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Erreur lors du chargement des données");
+        }
+        return response.json();
+      })
+      .then((contact) => {
+        setContact(contact); // Met à jour l'état avec les données récupérées
+        setLoading(false); // Désactive le chargement
+      })
+      .catch((error) => {
+        setError(error.message); // Met à jour l'état en cas d'erreur
+        setLoading(false); // Désactive le chargement
+      });
+  }, []); // Le tableau vide [] signifie que l'effet ne s'exécutera qu'une seule fois au montage
+
+  if (loading) {
+    return <p>Chargement en cours...</p>;
+  }
+
+  if (error) {
+    return <p>Erreur : {error}</p>;
+  }
 
   return (  
   <>
-
 <nav class="navbar" style={{backgroundColor: "#e3f2fd"}}>
   <div class="container-fluid">
     <a class="navbar-brand"></a>
@@ -26,24 +56,43 @@ export default function ListeContactPage() {
                 <div className='users-list'>
                     <div className='addNewUser'>
                         <button className='btn btn-success'>
-                            Ajouter Contact 
-                            
-                        </button>
-                        
+                            Ajouter Contact    
+                        </button>   
                     </div>
-                    <DataTable>
-                        <Column field="name" header="Nom"></Column>
-                        <Column field="username" header="Prénom"></Column>
-                        <Column field="email" header="Adresse Email"></Column>
-                        <Column field="phone" header="Numéro de téléphone"></Column>
-                        <Column header="Actions">
-                        </Column>
-                    </DataTable>
+                    <div>
+    <table border="0" width="100%" cellPadding="10" style={{
+    borderCollapse: "separate", // Important pour que border-spacing fonctionne
+    borderSpacing: "0 10px" 
+    }}>
+        
+          <tr>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>mail</th>
+            <th>tel</th>
+            <th>Actions</th>
+          </tr>
+          {contact.map((contact) => (
+            <tr key={contact.id}>
+              <td>{contact.nom}</td>
+              <td>{contact.prenom}</td>
+              <td>{contact.mail}</td>
+              <td>{contact.tel}</td>
+              <td className="action-buttons">
+                <button  className="btn btn-primary">
+                <i className="fas fa-eye" style={{ marginRight: "5px" }}></i>
+                </button>
+                <button className="btn btn-danger" style={{ marginRight: "5px",  }}>
+                <i className="fas fa-trash" style={{ marginRight: "5px" }}></i> 
+                </button>
+              </td>
+            </tr>
+          ))}
+      </table>
+                  </div>
                 </div>
-            </div>
-          
+            </div> 
         </div>
-  
   </>
 
 );

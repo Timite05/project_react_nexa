@@ -65,7 +65,11 @@ export default function ListeContactPage() {
     borderSpacing: "0 10px" 
     }}>
         
-          <tr>
+        <tr style={{
+        backgroundColor:"blue",
+         padding: "10px"
+      }} >
+            <th>Id</th>
             <th>Nom</th>
             <th>Prenom</th>
             <th>mail</th>
@@ -74,6 +78,7 @@ export default function ListeContactPage() {
           </tr>
           {contact.map((contact) => (
             <tr key={contact.id}>
+              <td>{contact.id}</td>
               <td>{contact.nom}</td>
               <td>{contact.prenom}</td>
               <td>{contact.mail}</td>

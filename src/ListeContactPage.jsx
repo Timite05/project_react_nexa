@@ -3,10 +3,19 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 
 export default function ListeContactPage() {
-  
-  return (
+
+  return (  
   <>
-  
+
+<nav class="navbar" style={{backgroundColor: "#e3f2fd"}}>
+  <div class="container-fluid">
+    <a class="navbar-brand"></a>
+    <form class="d-flex" role="search">
+      <input class="form-control me-2" type="search" placeholder="Search Contact" aria-label="Search"/>
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
    <div className='users-page'>
             <div className='container'>
                 <h1>

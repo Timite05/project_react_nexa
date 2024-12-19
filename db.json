@@ -1,0 +1,9 @@
+{
+    "contact": [
+        { "id": 1, "nom": "Bouchra", "prenom": "Bouchra", "mail" : "zerthj@gmail.com", "tel":"123456" },
+        { "id": 2, "nom": "Marie", "prenom": "Rose", "mail" : "zerthj@gmail.com", "tel":"12456456" },
+        { "id": 3, "nom": "Timite", "prenom": "Alassane", "mail" : "zerthj@gmail.com", "tel":"123456" }
+
+    ]
+
+}

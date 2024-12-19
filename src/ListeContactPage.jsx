@@ -7,6 +7,7 @@ export default function ListeContactPage() {
   const [contact, setContact] = useState([]); 
   const [loading, setLoading] = useState(true); 
   const [error, setError] = useState(null); 
+    
 
   useEffect(() => {
     // Appel à une API pour récupérer des données
@@ -34,6 +35,25 @@ export default function ListeContactPage() {
   if (error) {
     return <p>Erreur : {error}</p>;
   }
+// fonction de suppression d'un élément à travers son ID
+
+
+ 
+const handleDelete = async (id) => {
+  
+  try {
+    // Appeler l'API pour supprimer l'élément
+    if (window.confirm("Êtes-vous sûr de vouloir supprimer cet élément ?"))
+    await fetch(`http://localhost:3004/contact/${id}`, { method: "DELETE" });
+
+    // Mettre à jour localement après succès
+    const updatedContact = contact.filter((contact) => contact.id !== id);
+    setContact(updatedContact);
+  } catch (error) {
+    console.error("Erreur lors de la suppression :", error);
+  }
+ 
+  };
 
   return (  
   <>
@@ -84,10 +104,12 @@ export default function ListeContactPage() {
               <td>{contact.mail}</td>
               <td>{contact.tel}</td>
               <td className="action-buttons">
-                <button  className="btn btn-primary">
+                <button className="btn btn-primary">
                 <i className="fas fa-eye" style={{ marginRight: "5px" }}></i>
                 </button>
-                <button className="btn btn-danger" style={{ marginRight: "5px",  }}>
+                <button 
+                onClick={() => handleDelete(contact.id)} 
+                className="btn btn-danger" style={{ marginRight: "5px",  }}>
                 <i className="fas fa-trash" style={{ marginRight: "5px" }}></i> 
                 </button>
               </td>
